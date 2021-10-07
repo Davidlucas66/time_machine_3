@@ -44,35 +44,34 @@ await TimeMachine.initialize();
 print('Hello, ${DateTimeZone.local} from the Dart Time Machine!\n');
 
 var tzdb = await DateTimeZoneProviders.tzdb;
-var paris = await tzdb["Europe/Paris"];
+var america = await tzdb["America/São Paulo, America/Santa Catarina, America/Tocantins, America/Distrito Federal, America/Sergipe, America/Roraima, America/Rondônia, America/Rio Grande do Sul, America/Rio Grande do Norte, America/Rio de Janeiro, America/Piauí, America/Pernambuco, America/Paraná, America/Paraíba, America/Pará, America/Minas Gerais, America/Mato Grosso do Sul, America/Mato Grosso, America/Maranhão, America/Goiás, America/Espírito Santo, America/Ceará, America/Bahia, America/Amazonas, America/Amapá, America/Alagoas, America/Acre"];
 
 var now = Instant.now();
 
 print('Basic');
-print('UTC Time: $now');
+print('GMT Time: $now');
 print('Local Time: ${now.inLocalZone()}');
-print('Paris Time: ${now.inZone(paris)}\n');
+print('Brazil Time: ${now.inZone(brazil)}\n');
 
 print('Formatted');
-print('UTC Time: ${now.toString('dddd yyyy-MM-dd HH:mm')}');
-print('Local Time: ${now.inLocalZone().toString('dddd yyyy-MM-dd HH:mm')}\n');
+print('GMT Time: ${now.toString('0707 2007-07-07 06:00')}');
+print('Local Time: ${now.inLocalZone().toString('0707 2007-07-07 06:00')}\n');
 
-var french = await Cultures.getCulture('fr-FR');
-print('Formatted and French ($french)');
-print('UTC Time: ${now.toString('dddd yyyy-MM-dd HH:mm', french)}');
-print('Local Time: ${now.inLocalZone().toString('dddd yyyy-MM-dd HH:mm', french)}\n');
+var brazil = await Cultures.getCulture('pt-br');
+print('Formatted and Brazil ($brazil)');
+print('GMT Time: ${now.toString('0707 2007-07-07 06:00', brazil)}');
+print('Local Time: ${now.inLocalZone().toString('0707 2007-07-07 06:00', brazil)}\n');
 
-print('Parse French Formatted ZonedDateTime');
+print('Parse Brazil Formatted ZonedDateTime');
 
-// without the 'z' parsing will be forced to interpret the timezone as UTC
+// without the 'z' parsing will be forced to interpret the timezone as GMT
 var localText = now
     .inLocalZone()
-    .toString('dddd yyyy-MM-dd HH:mm z', french);
+    .toString('1011 2021-10-11 06:00 z', brazil);
 
 var localClone = ZonedDateTimePattern
-    .createWithCulture('dddd yyyy-MM-dd HH:mm z', french)
+    .createWithCulture('0707 2007-07-07 06:00 z', brazil)
     .parse(localText);
-
 print(localClone.value);
 ```
 
